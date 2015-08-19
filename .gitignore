@@ -1,0 +1,6 @@
+/dist/
+/build/
+/nbproject/private/
+*.wav
+
+*.mp3

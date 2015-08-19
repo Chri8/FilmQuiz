@@ -1,0 +1,377 @@
+[
+	{
+		"ID": 1,
+		"Mp3": "1.mp3",
+		"Namen": [
+			"The Expendables 1",
+			"The Expendables 2",
+			"The Expendables 3"
+		],
+		"Antwort": "The Expendables 1"
+	},
+
+	{
+		"ID": 2,
+		"Mp3": "2.mp3",
+		"Namen": [
+			"Top Gun",
+			"Apollo 13",
+			"Aviator"
+		],
+		"Antwort": "Apollo 13"
+	},
+
+	{
+		"ID": 3,
+		"Mp3": "3.mp3",
+		"Namen": [
+			"Kleinruppin forever",
+			"Good Bye, Lenin!",
+			"Friendship!"
+		],
+		"Antwort": "Friendship!"
+	},
+
+	{
+		"ID": 4,
+		"Mp3": "4.mp3",
+		"Namen": [
+			"K-19 - Showdown in der Tiefe",
+			"Liebesgrüße aus Moskau",
+			"Jadt auf Roter Oktober"
+		],
+		"Antwort": "Jadt auf Roter Oktober"
+	},
+
+	{
+		"ID": 5,
+		"Mp3": "5.mp3",
+		"Namen": [
+			"Full Metal Jacket",
+			"Der Soldat James Ryan",
+			"Die durch die Hölle gehen"
+		],
+		"Antwort": "Full Metal Jacket"
+	},
+
+	{
+		"ID": 6,
+		"Mp3": "6.mp3",
+		"Namen": [
+			"Winnetou",
+			"Der Schatz im Silbersee",
+			"Der Schuh des Manitu"
+		],
+		"Antwort": "Der Schuh des Manitu"
+	},
+
+	{
+		"ID": 7,
+		"Mp3": "7.mp3",
+		"Namen": [
+			"Harry Potter und der geheime Pornokeller",
+			"Solar Wars 3 - Die Rache der Sith",
+			"Lord of the Weed - Sinnlos in Mittelerde"
+		],
+		"Antwort": "Lord of the Weed - Sinnlos in Mittelerde"
+	},
+
+	{
+		"ID": 8,
+		"Mp3": "8.mp3",
+		"Namen": [
+			"Harry Potter und der plastik Pokal",
+			"Lord of the Weed -Sinnlos in Mittelerde",
+			"Harrypotter und ein Stein"
+		],
+		"Antwort": "Lord of the Weed -Sinnlos in Mittelerde"
+	},
+
+	{
+		"ID": 9,
+		"Mp3": "9.mp3",
+		"Namen": [
+			"Jungfrau (40), männlich, sucht",
+			"Crazy Stupid Love",
+			"Hitch der Date Doctor"
+		],
+		"Antwort": "Crazy Stupid Love"
+	},
+
+	{
+		"ID": 10,
+		"Mp3": "10.mp3",
+		"Namen": [
+			"Das Boot",
+			"Jagt auf Roter Oktober",
+			"Unternehmen Petticoat"
+		],
+		"Antwort": "Das Boot"
+	},
+
+	{
+		"ID": 11,
+		"Mp3": "11.mp3",
+		"Namen": [
+			"Stichtag",
+			"Hangover",
+			"Fear and Loathing in Las Vegas"
+		],
+		"Antwort": "Hangover"
+	},
+
+	{
+		"ID": 12,
+		"Mp3": "12.mp3",
+		"Namen": [
+			"Sieben",
+			"Fight Club",
+			"Pulp Fiction"
+		],
+		"Antwort": "Fight Club"
+	},
+
+	{
+		"ID": 13,
+		"Mp3": "13.mp3",
+		"Namen": [
+			"Platoon",
+			"Good Morning Vietnam",
+			"Full Metal Jacket"
+		],
+		"Antwort": "Full Metal Jacket"
+	},
+
+	{
+		"ID": 14,
+		"Mp3": "14.mp3",
+		"Namen": [
+			"Der Herr der Ringe - Die Zwei Türme",
+			"Der Herr der Ringe - Die Gefährten",
+			"Der Herr der Ringe - die Rückkehr des Königs"
+		],
+		"Antwort": "Der Herr der Ringe - Die Gefährten"
+	},
+
+	{
+		"ID": 15,
+		"Mp3": "15.mp3",
+		"Namen": [
+			"The Guardian",
+			"Black Hawk Down",
+			"Der Sturm"
+		],
+		"Antwort": "The Guardian"
+	},
+
+	{
+		"ID": 16,
+		"Mp3": "16.mp3",
+		"Namen": [
+			"Fluch der Karibik 1",
+			"Fluch der Karibik 2",
+			"Fluch der Karibik 3"
+		],
+		"Antwort": "Fluch der Karibik 2"
+	},
+
+	{
+		"ID": 17,
+		"Mp3": "17.mp3",
+		"Namen": [
+			"Tron Legacy",
+			"Tron",
+			"Tron 3"
+		],
+		"Antwort": "Tron Legacy"
+	},
+
+	{
+		"ID": 18,
+		"Mp3": "18.mp3",
+		"Namen": [
+			"The Fighter",
+			"Kill Bill",
+			"Lord of War"
+		],
+		"Antwort": "Lord of War"
+	},
+
+	{
+		"ID": 19,
+		"Mp3": "19.mp3",
+		"Namen": [
+			"Wir sind die Millers",
+			"Fack ju Göhte",
+			"Vollidiot"
+		],
+		"Antwort": "Fack ju Göhte"
+	},
+
+	{
+		"ID": 20,
+		"Mp3": "20.mp3",
+		"Namen": [
+			"Terminator",
+			"Terminator - Rebellion der Maschinen",
+			"Terminator - Tag der Abrechnung"
+		],
+		"Antwort": "Terminator - Tag der Abrechnung"
+	},
+
+	{
+		"ID": 21,
+		"Mp3": "21.mp3",
+		"Namen": [
+			"Operation Walküre",
+			"Der Untergang",
+			"Schindlers Liste"
+		],
+		"Antwort": "Der Untergang"
+	},
+
+	{
+		"ID": 22,
+		"Mp3": "22.mp3",
+		"Namen": [
+			"Jagt auf Roter Oktober",
+			"Wargames",
+			"Das Boot"
+		],
+		"Antwort": "Jagt auf Roter Oktober"
+	},
+
+	{
+		"ID": 23,
+		"Mp3": "23.mp3",
+		"Namen": [
+			"Terminator - Rebellion der Maschinen",
+			"Terminator - Tag der Abrechnung",
+			"Terminator"
+		],
+		"Antwort": "Terminator"
+	},
+
+	{
+		"ID": 24,
+		"Mp3": "24.mp3",
+		"Namen": [
+			"Das Beste kommt zum Schluss",
+			"R.E.D.",
+			"Zwei vom alten Schlag"
+		],
+		"Antwort": "R.E.D."
+	},
+
+	{
+		"ID": 25,
+		"Mp3": "25.mp3",
+		"Namen": [
+			"Galaxy Quest",
+			"Odysse im Weltraum",
+			"Traumschiff Surprise"
+		],
+		"Antwort": "Galaxy Quest"
+	},
+
+	{
+		"ID": 26,
+		"Mp3": "26.mp3",
+		"Namen": [
+			"Indiana Jones - Jäger des verlorenen Schatzes",
+			"Indiana Jones und der Tempel des Todes",
+			"Indiana Jones und der letzte Kreuzzug"
+		],
+		"Antwort": "Indiana Jones - Jäger des verlorenen Schatzes"
+	},
+
+	{
+		"ID": 27,
+		"Mp3": "27.mp3",
+		"Namen": [
+			"Der Goldene Kompass",
+			"Harry Potter",
+			"Herr der Ringe"
+		],
+		"Antwort": "Herr der Ringe"
+	},
+
+	{
+		"ID": 28,
+		"Mp3": "28.mp3",
+		"Namen": [
+			"The Avengers",
+			"Toy Story",
+			"Superman"
+		],
+		"Antwort": "Toy Story"
+	},
+
+	{
+		"ID": 29,
+		"Mp3": "29.mp3",
+		"Namen": [
+			"Prometheus",
+			"Matrix",
+			"Tron Legacy"
+		],
+		"Antwort": "Tron Legacy"
+	},
+
+	{
+		"ID": 30,
+		"Mp3": "30.mp3",
+		"Namen": [
+			"Einfach zu Haben",
+			"Notting Hill",
+			"Crazy Stupid Love"
+		],
+		"Antwort": "Crazy Stupid Love"
+	},
+
+	{
+		"ID": 31,
+		"Mp3": "31.mp3",
+		"Namen": [
+			"Good Bye, Lenin!",
+			"NVA",
+			"Friendship!"
+		],
+		"Antwort": "Friendship!"
+	},
+
+	{
+		"ID": 32,
+		"Mp3": "32.mp3",
+		"Namen": [
+			"Hangover 2",
+			"Fear and Loathing in Las Vegas",
+			"Hangover"
+		],
+		"Antwort": "Hangover"
+	},
+
+	{
+		"ID": 33,
+		"Mp3": "33.mp3",
+		"Namen": [
+			"Fack ju Göhte",
+			"Keinohrhase",
+			"Offroad"
+		],
+		"Antwort": "Fack ju Göhte"
+	},
+
+	{
+		"ID": 34,
+		"Mp3": "34.mp3",
+		"Namen": [
+			"Friends",
+			"Wir sind die Millers",
+			"Kill the Boss"
+		],
+		"Antwort": "Wir sind die Millers"
+	},
+
+
+]
