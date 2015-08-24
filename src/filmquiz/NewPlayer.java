@@ -21,27 +21,23 @@ public class NewPlayer implements ControllerListener {
     Player player;
     File file;
     private boolean isPlaying;
-    
 
     public NewPlayer(String title) {
-       isPlaying = false;
-       file = new File(title);
-       this.title = title;
+        isPlaying = false;
+        file = new File(title);
+        this.title = title;
         try {
             prepPlayer();
         } catch (Exception ex) {
             Logger.getLogger(NewPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
-    
+
     public Player prepPlayer() throws IOException, NoPlayerException {
-            //URL url = this.getClass().getClassLoader().getResource(title);
-           
-            MediaLocator locator = new MediaLocator(file.toURI().toURL());
-            player = Manager.createPlayer(locator);
-            player.addControllerListener(this);
-            return player;
+        MediaLocator locator = new MediaLocator(file.toURI().toURL());
+        player = Manager.createPlayer(locator);
+        player.addControllerListener(this);
+        return player;
     }
 
     public void play() {
@@ -55,18 +51,18 @@ public class NewPlayer implements ControllerListener {
         player.setMediaTime(new javax.media.Time(0.0));
         isPlaying = false;
     }
-    
+
     public void close() {
         player.close();
     }
-    
+
     @Override
     public void controllerUpdate(ControllerEvent ce) {
         if (ce instanceof EndOfMediaEvent) {
             stop();
         }
     }
-    
+
     public boolean isPlaying() {
         return isPlaying;
     }

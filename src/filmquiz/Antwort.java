@@ -29,11 +29,8 @@ public class Antwort extends javax.swing.JFrame {
             jLabel1.setText("Falsch");
             jLabel2.setText("Die Richtige Lösung ist :");
             jLabel3.setText(Richtige);
-            
         }
-        
         setVisible(true);
-        
     }
 
     /**
@@ -120,7 +117,6 @@ public class Antwort extends javax.swing.JFrame {
     }//GEN-LAST:event_handler
 
    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

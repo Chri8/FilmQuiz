@@ -24,6 +24,7 @@ public class GUI extends javax.swing.JFrame {
     name nameFrame;
     Antwort antwortFrame;
     Bestenliste ranked;
+    Einstellungen einstellungen = new Einstellungen(this, quiz);
     
     NewPlayer newPlayer = null;
 
@@ -56,7 +57,6 @@ public class GUI extends javax.swing.JFrame {
         c.startCountdown();
         c.setPause(true);
         initComponents();
-
     }
 
     /**
@@ -77,7 +77,7 @@ public class GUI extends javax.swing.JFrame {
         playbtn1 = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         bestenliste = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        settings = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SchunterKino MovieQuiz");
@@ -140,7 +140,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton1.setText("Einstellungen");
+        settings.setText("Einstellungen");
+        settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,7 +172,7 @@ public class GUI extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(stopbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bestenliste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -194,7 +199,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bestenliste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton1)
+                .addComponent(settings)
                 .addGap(11, 11, 11))
         );
 
@@ -209,7 +214,6 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_newGameActionPerformed
 
     public void newGame() {
-
         score_ = 0;
         max_Question = MAX_QUESTION;
         past = new GregorianCalendar().getTimeInMillis();
@@ -230,7 +234,6 @@ public class GUI extends javax.swing.JFrame {
     private void AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AActionPerformed
         String name = A.getText();
         if (evt.getSource() == A) {
-
             check(name);
         }
     }//GEN-LAST:event_AActionPerformed
@@ -238,9 +241,7 @@ public class GUI extends javax.swing.JFrame {
     private void BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActionPerformed
         String name = B.getText();
         if (evt.getSource() == B) {
-
             check(name);
-
         }
     }//GEN-LAST:event_BActionPerformed
 
@@ -250,9 +251,7 @@ public class GUI extends javax.swing.JFrame {
 
             playbtn1.setEnabled(true);
             stopbtn.setEnabled(false);
-
         }
-
     }//GEN-LAST:event_stopbtnActionPerformed
 
     private void playbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playbtn1ActionPerformed
@@ -261,7 +260,6 @@ public class GUI extends javax.swing.JFrame {
 
             playbtn1.setEnabled(false);
             stopbtn.setEnabled(true);
-
         }
     }//GEN-LAST:event_playbtn1ActionPerformed
 
@@ -269,7 +267,6 @@ public class GUI extends javax.swing.JFrame {
         String name = C.getText();
         if (evt.getSource() == C) {
             check(name);
-
         }
     }//GEN-LAST:event_CActionPerformed
 
@@ -278,9 +275,14 @@ public class GUI extends javax.swing.JFrame {
             c.reset();
             ranked= new Bestenliste();
             ranked.setVisible(true);
-
         }
     }//GEN-LAST:event_bestenlisteActionPerformed
+
+    private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
+        if(evt.getSource() == settings) {
+            einstellungen.setVisible(true);
+        }
+    }//GEN-LAST:event_settingsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,9 +305,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton bestenliste;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JButton newGame;
     private javax.swing.JToggleButton playbtn1;
+    private javax.swing.JToggleButton settings;
     private javax.swing.JToggleButton stopbtn;
     // End of variables declaration//GEN-END:variables
 
@@ -344,8 +346,8 @@ public class GUI extends javax.swing.JFrame {
         } else {
             finish();
         }
-
     }
+    
     public void isPlaying(){
        if(newPlayer != null && !newPlayer.isPlaying()){
            playbtn1.setEnabled(true);
@@ -366,9 +368,7 @@ public class GUI extends javax.swing.JFrame {
         } else {
             antwortFrame = new Antwort(this, false, antwort);
             max_Question--;
-
         }
-
     }
 
     public void finish() {
@@ -387,7 +387,6 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public int[] neededTime(long past, long now) {
-
         int[] array = new int[2];
 
         long unterschied = now - past;

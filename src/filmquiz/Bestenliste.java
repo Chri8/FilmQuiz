@@ -29,10 +29,7 @@ public class Bestenliste extends javax.swing.JFrame {
      * Creates new form Bestenliste
      */
     public Bestenliste() {
-
         initComponents();
-        
-
     }
 
     /**
@@ -98,9 +95,7 @@ public class Bestenliste extends javax.swing.JFrame {
             row[2] = jSONObject.get("Zeit");
             tableModel.addRow(row);
         }
-
         return tableModel;
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
