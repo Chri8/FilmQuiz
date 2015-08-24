@@ -8,10 +8,6 @@ package filmquiz;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import org.json.simple.parser.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -29,7 +25,6 @@ public class Quiz {
 
     public Quiz() {
         loadJson("fragen.json");
-
     }
 
     public JSONArray loadJson(String Datei) {
@@ -40,48 +35,35 @@ public class Quiz {
             jsonArray = (JSONArray) jsonParser.parse(reader);
 
             return jsonArray;
-
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void saveJSON(JSONArray saveArray) {
+    public void saveJSON(String File, JSONArray saveArray) {
         try {
-            FileWriter writer = new FileWriter("Bestenliste.json");
+            FileWriter writer = new FileWriter(File);
             writer.write(saveArray.toJSONString());
             writer.flush();
             writer.close();
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
 
-    }
-    public void deleteJSON() {
-        
-    }
 
     public void saveRanked(String Name, int score, int[] time) {
-
         saveJSONObject.put("Name", Name);
         saveJSONObject.put("Punkte", score);
         saveJSONObject.put("Zeit", time[0]+":"+time[1]);
 
         newArray = getBestenliste();
         newArray.add(getLast() + 1, saveJSONObject);
-        saveJSON(newArray);
-
-    }
-    public void clearRanked(){
-        newArray = getBestenliste();
-        newArray.clear();
-        saveJSON(newArray);
+        saveJSON("Bestenliste.json",newArray);
     }
 
     public JSONArray getBestenliste() {
-
         return loadJson("Bestenliste.json");
     }
 
@@ -90,6 +72,10 @@ public class Quiz {
         return last;
     }
 
+    
+    /*
+    Veraltet kann aber verwendet werden um JSON Arrays zu sortieren.
+    
     public JSONArray sortJSONArray() {
 
         JSONArray jsonArr = getBestenliste();
@@ -127,5 +113,7 @@ public class Quiz {
         return sortedJsonArray;
 
     }
+    
+    */
 
 }

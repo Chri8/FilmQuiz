@@ -18,7 +18,6 @@ public class Time extends javax.swing.JFrame {
      */
     public Time(GUI gui) {
         this.gui = gui;
-        
         initComponents();
     }
 
@@ -91,8 +90,7 @@ public class Time extends javax.swing.JFrame {
        if (evt.getSource() == jButton1) {
            gui.finish();
            setVisible(false);
-
-        }
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

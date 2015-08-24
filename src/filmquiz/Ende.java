@@ -120,10 +120,8 @@ public class Ende extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        if(evt.getSource() == jButton1){
-           
            gui.newGame();
-           this.dispose(); 
-            
+           this.dispose();
        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -132,9 +130,7 @@ public class Ende extends javax.swing.JFrame {
             this.dispose();
             gui.dispose();
             System.exit(0);
-            
-        }
-        
+        }    
     }//GEN-LAST:event_jButton2ActionPerformed
 
   

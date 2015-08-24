@@ -5,16 +5,26 @@
  */
 package filmquiz;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 /**
  *
  * @author Christian
  */
 public class Einstellungen extends javax.swing.JFrame {
 
+    GUI gui_;
+    Quiz quiz_;
+    JSONArray newArray;
+    JSONObject saveJSONObject = new JSONObject();
+
     /**
      * Creates new form Einstellungen
      */
-    public Einstellungen() {
+    public Einstellungen(GUI gui, Quiz quiz) {
+        this.gui_ = gui;
+        this.quiz_ = quiz;
         initComponents();
     }
 
@@ -35,7 +45,7 @@ public class Einstellungen extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +124,6 @@ public class Einstellungen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -125,4 +134,15 @@ public class Einstellungen extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    public void getSettings() {
+        quiz_.loadJson("settings.json");
+    }
+
+    public void saveSettings(int fragen, int timer) {
+        saveJSONObject.put("Fragen", fragen);
+        saveJSONObject.put("Timer", timer);
+        newArray.add(quiz_.getLast() + 1, saveJSONObject);
+        quiz_.saveJSON("Settings.json", newArray);
+    }
 }

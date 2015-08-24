@@ -78,8 +78,6 @@ public class name extends javax.swing.JFrame {
             this.dispose();
             gui.name=jTextField1.getText();
             gui.newGame();
-            
-            
         }
     }//GEN-LAST:event_OKActionPerformed
 
