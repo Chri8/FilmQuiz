@@ -44,7 +44,7 @@ public class Countdown extends Thread {
 						l.onMaximum(maximum);
 					}
 					
-					break;
+					pause = true;
 				}
 			}
 		}

@@ -23,6 +23,7 @@ public class Bestenliste extends javax.swing.JFrame {
     List<String> NameList = new ArrayList<>();
     List<String> PunkteList = new ArrayList<>();
     List<String> ZeitList = new ArrayList<>();
+    
 
     /**
      * Creates new form Bestenliste
@@ -30,6 +31,7 @@ public class Bestenliste extends javax.swing.JFrame {
     public Bestenliste() {
 
         initComponents();
+        
 
     }
 
@@ -45,7 +47,6 @@ public class Bestenliste extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,18 +59,6 @@ public class Bestenliste extends javax.swing.JFrame {
         jTable1.setShowGrid(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-        }
-
-        jButton1.setText("Sortieren");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,10 +70,6 @@ public class Bestenliste extends javax.swing.JFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,36 +78,12 @@ public class Bestenliste extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (evt.getSource() == jButton1) {
-            tableModel.setRowCount(0);
-            JSONArray array = quiz.sortJSONArray();
-            tableModel.setColumnIdentifiers(new Object[]{"Name", "Punkte", "Zeit"});
-
-            Object[] row = new Object[tableModel.getColumnCount()];
-
-            for (Object array1 : array) {
-                JSONObject jSONObject = (JSONObject) array1;
-                row[0] = jSONObject.get("Name").toString();
-                row[1] = jSONObject.get("Punkte");
-                row[2] = jSONObject.get("Zeit");
-                tableModel.addRow(row);
-            }
-            
-            jTable1.setModel(tableModel);
-            tableModel.fireTableDataChanged();
-
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     public DefaultTableModel setRanked() {
         JSONArray array = quiz.getBestenliste();
@@ -143,9 +104,8 @@ public class Bestenliste extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
+    javax.swing.JLabel jLabel1;
+    javax.swing.JScrollPane jScrollPane4;
+    javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

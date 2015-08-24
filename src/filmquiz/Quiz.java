@@ -59,6 +59,9 @@ public class Quiz {
         }
 
     }
+    public void deleteJSON() {
+        
+    }
 
     public void saveRanked(String Name, int score, int[] time) {
 
@@ -70,6 +73,11 @@ public class Quiz {
         newArray.add(getLast() + 1, saveJSONObject);
         saveJSON(newArray);
 
+    }
+    public void clearRanked(){
+        newArray = getBestenliste();
+        newArray.clear();
+        saveJSON(newArray);
     }
 
     public JSONArray getBestenliste() {

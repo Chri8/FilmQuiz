@@ -1,0 +1,7 @@
+### Filmquiz ###
+
+Vorm ersten Start:
+
+java -cp libs/jmf.jar:libs/mp3plugin.jar com.sun.media.codec.audio.mp3.JavaDecoder
+
+ausführen!

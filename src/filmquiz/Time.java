@@ -89,14 +89,14 @@ public class Time extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        if (evt.getSource() == jButton1) {
-           gui.change();
+           gui.finish();
            setVisible(false);
 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        gui.change();
+        gui.finish();
     }//GEN-LAST:event_formWindowClosing
 
    

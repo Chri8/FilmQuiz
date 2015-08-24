@@ -5,17 +5,12 @@
  */
 package filmquiz;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
-import javazoom.jl.decoder.JavaLayerException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,10 +24,10 @@ public class GUI extends javax.swing.JFrame {
     name nameFrame;
     Antwort antwortFrame;
     Bestenliste ranked;
+    
+    NewPlayer newPlayer = null;
 
-    AudioPlayer audioplayer = null;
     Countdown c = new Countdown();
-    Countdown c_g = new Countdown();
     int score_ = 0;
 
     final int MAX_QUESTION = 10;
@@ -56,7 +51,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         jsonArray = quiz.loadJson("fragen.json");
         time = new Time(this);
-
+        
         timer();
         c.startCountdown();
         c.setPause(true);
@@ -82,9 +77,10 @@ public class GUI extends javax.swing.JFrame {
         playbtn1 = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         bestenliste = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Film Zitat Quiz");
+        setTitle("SchunterKino MovieQuiz");
         setResizable(false);
 
         newGame.setText("Neues Spiel");
@@ -144,36 +140,35 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton1.setText("Einstellungen");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(newGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(bestenliste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(newGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(B, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(C, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(A, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(C, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(B, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(playbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(stopbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(A, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                                .addGap(18, 18, 18)
+                                .addComponent(stopbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bestenliste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,16 +185,17 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(A)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(A, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(C, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(B, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(newGame, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bestenliste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(C)
-                .addGap(4, 4, 4)
-                .addComponent(B)
-                .addGap(18, 18, 18)
-                .addComponent(newGame)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bestenliste, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jToggleButton1)
+                .addGap(11, 11, 11))
         );
 
         pack();
@@ -225,12 +221,10 @@ public class GUI extends javax.swing.JFrame {
             ausgewaehlte.add(r);
         }
 
-        if (name.isEmpty()) {
-        } else {
+        if (!name.isEmpty()) {
             c.setPause(false);
             change();
         }
-
     }
 
     private void AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AActionPerformed
@@ -263,10 +257,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void playbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playbtn1ActionPerformed
         if (evt.getSource() == playbtn1) {
-
-            stopMusic();
-            Thread AudioThread = new Thread(audioplayer);
-            AudioThread.start();
+            replayMusic();
 
             playbtn1.setEnabled(false);
             stopbtn.setEnabled(true);
@@ -312,6 +303,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton bestenliste;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JButton newGame;
     private javax.swing.JToggleButton playbtn1;
     private javax.swing.JToggleButton stopbtn;
@@ -339,7 +331,6 @@ public class GUI extends javax.swing.JFrame {
                 playbtn1.setEnabled(false);
                 stopbtn.setEnabled(false);
             } else {
-                stopMusic();
                 playbtn1.setEnabled(false);
                 stopbtn.setEnabled(true);
                 playMusic(mp3Pfad);
@@ -354,6 +345,12 @@ public class GUI extends javax.swing.JFrame {
             finish();
         }
 
+    }
+    public void isPlaying(){
+       if(newPlayer != null && !newPlayer.isPlaying()){
+           playbtn1.setEnabled(true);
+           stopbtn.setEnabled(false);
+       }
     }
 
     public void check(String name) {
@@ -376,10 +373,10 @@ public class GUI extends javax.swing.JFrame {
 
     public void finish() {
         c.reset();
-        int count = 0;
-        count++;
         jLabel2.setText("Frage : " + max_Question + " / " + MAX_QUESTION);
         if (max_Question == 0) {
+            
+            playMusic("boom.wav");
             arrayTime = neededTime(past, new GregorianCalendar().getTimeInMillis());
 
             quiz.saveRanked(name, score_ / 2, arrayTime);
@@ -407,15 +404,17 @@ public class GUI extends javax.swing.JFrame {
 
             @Override
             public void onTick(int current) {
-                int sektime = 30;
+                int sektime = TIMER;
                 int current_neu = sektime - current;
                 String S = "Noch : " + current_neu + " Sek";
                 jLabel1.setText(S);
+                isPlaying();
 
                 if (current_neu == 0) {
                     c.setPause(true);
                     time.setVisible(true);
-
+                    stopMusic();
+                    max_Question--;
                 }
             }
 
@@ -431,8 +430,7 @@ public class GUI extends javax.swing.JFrame {
 
             @Override
             public void onMaximum(int maximum) {
-                finish();
-
+                //finish();
             }
 
             @Override
@@ -449,25 +447,31 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public void stopMusic() {
-        if (audioplayer != null) {
-            try {
-                audioplayer.stopMusic();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+        if (newPlayer != null) {
+            newPlayer.stop();
         }
 
     }
 
     public void playMusic(String Pfad){
-        try {
-            audioplayer = new AudioMP3Player("Sounds/" + Pfad);
-        } catch (JavaLayerException | FileNotFoundException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        closePlayer();
+        newPlayer = new NewPlayer("Sounds/" + Pfad);
+        newPlayer.play();
+    }
+    
+    public void replayMusic() {
+        if (newPlayer != null)
+        {
+            newPlayer.stop();
+            newPlayer.play();
         }
-        Thread AudioThread = new Thread(audioplayer);
-        AudioThread.start();
+    }
 
+    private void closePlayer() {
+        if (newPlayer != null) {
+            stopMusic();
+            newPlayer.close();
+        }
     }
 
 }
