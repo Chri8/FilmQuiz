@@ -4,8 +4,8 @@
 *.wav
 *.mp3
 .DS_Store
-/Sounds/.DS_Store
-/libs/.DS_Store
-/libs/CopyLibs/.DS_Store
-/nbproject/.DS_Store
-/src/filmquiz/.DS_Store
+Sounds/.DS_Store
+libs/.DS_Store
+libs/CopyLibs/.DS_Store
+nbproject/.DS_Store
+src/filmquiz/.DS_Store
