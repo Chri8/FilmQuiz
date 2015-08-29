@@ -18,7 +18,8 @@ public class Einstellungen extends javax.swing.JFrame {
     Quiz quiz_;
     JSONArray newArray;
     JSONObject saveJSONObject = new JSONObject();
-
+    JSONArray settingsArray = quiz_.loadJson("Settings.json");
+    JSONObject jSONObject = (JSONObject) settingsArray.get(0);
     /**
      * Creates new form Einstellungen
      */
@@ -55,6 +56,11 @@ public class Einstellungen extends javax.swing.JFrame {
         });
 
         jButton2.setText("Abbrechen");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Fragen:");
 
@@ -118,11 +124,26 @@ public class Einstellungen extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        if(evt.getSource() == jButton1){
+            setTimer();
+            setFragen();
+            saveSettings(Integer.parseInt(fragen.getText()),Integer.parseInt(timer.getText()));
+            
+            gui_.setLabel();
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(evt.getSource() == jButton2){
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -135,23 +156,41 @@ public class Einstellungen extends javax.swing.JFrame {
     private javax.swing.JTextField timer;
     // End of variables declaration//GEN-END:variables
 
-    public void getSettings() {
-        quiz_.loadJson("settings.json");
+    public void runAtfirstStart() {
+        
+        if(jSONObject != null) {
+            
+            Integer timer = (Integer) jSONObject.get("Timer");
+            Integer anzahl = (Integer) jSONObject.get("Fragen");
+            
+            gui_.setTimer(timer);
+            gui_.setFragen(anzahl);
+            
+        } else {
+            
+            gui_.setTimer(30);
+            gui_.setFragen(10);
+            
+        }
+        
+        
     }
 
-    public void saveSettings(int fragen, int timer) {
+    private void saveSettings(Integer fragen, Integer timer) {
         saveJSONObject.put("Fragen", fragen);
         saveJSONObject.put("Timer", timer);
-        newArray.add(quiz_.getLast() + 1, saveJSONObject);
+        newArray.add(saveJSONObject);
         quiz_.saveJSON("Settings.json", newArray);
     }
     
     
     
-    public void setTimer(){
+    private void setTimer(){
         gui_.setTimer(Integer.parseInt(timer.getText()));
     }
     private void setFragen(){
         gui_.setFragen(Integer.parseInt(fragen.getText()));
     }
+  
+    
 }

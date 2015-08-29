@@ -26,7 +26,7 @@ public class GUI extends javax.swing.JFrame {
     Bestenliste ranked;
     Einstellungen einstellungen = new Einstellungen(this, quiz);
     
-    NewPlayer newPlayer = null;
+    AudioPlayer newPlayer = null;
 
     Countdown c = new Countdown();
     int score_ = 0;
@@ -50,6 +50,7 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public GUI() {
+        einstellungen.runAtfirstStart();
         jsonArray = quiz.loadJson("fragen.json");
         time = new Time(this);
         
@@ -351,7 +352,7 @@ public class GUI extends javax.swing.JFrame {
     }
     
     public void isPlaying(){
-       if(newPlayer != null && !newPlayer.isPlaying()){
+       if(newPlayer != null && !newPlayer.getIsPlaying()){
            playbtn1.setEnabled(true);
            stopbtn.setEnabled(false);
        }
@@ -375,7 +376,7 @@ public class GUI extends javax.swing.JFrame {
 
     public void finish() {
         c.reset();
-        jLabel2.setText("Frage : " + max_Question + " / " + MAX_QUESTION);
+        setLabel();
         if (max_Question == 0) {
             
             playMusic("boom.wav");
@@ -386,6 +387,9 @@ public class GUI extends javax.swing.JFrame {
         } else {
             change();
         }
+    }
+    public void setLabel(){
+        jLabel2.setText("Frage : " + max_Question + " / " + MAX_QUESTION);
     }
 
     public int[] neededTime(long past, long now) {
@@ -456,7 +460,7 @@ public class GUI extends javax.swing.JFrame {
 
     public void playMusic(String Pfad){
         closePlayer();
-        newPlayer = new NewPlayer("Sounds/" + Pfad);
+        newPlayer = new AudioPlayer("Sounds/" + Pfad);
         newPlayer.play();
     }
     
@@ -481,6 +485,7 @@ public class GUI extends javax.swing.JFrame {
     
     public void setFragen(int anzahl) {
         MAX_QUESTION = anzahl;
+        max_Question=anzahl;
     }
 
 }

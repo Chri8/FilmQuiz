@@ -127,8 +127,6 @@ public class Ende extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(evt.getSource() == jButton2) {
-            this.dispose();
-            gui.dispose();
             System.exit(0);
         }    
     }//GEN-LAST:event_jButton2ActionPerformed
