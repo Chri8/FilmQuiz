@@ -188,7 +188,7 @@ public class Quiz {
             playMusic("boom.wav");
             arrayTime = neededTime(past, new GregorianCalendar().getTimeInMillis());
 
-            saveRanked(nameFrame.getName(), score_ / 2, arrayTime);
+            saveRanked(name, score_ / 2, arrayTime);
             endeFrame = new Ende(this, score_ / 2, arrayTime);
         } else {
             change();
