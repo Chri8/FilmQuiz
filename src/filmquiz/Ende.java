@@ -10,35 +10,37 @@ package filmquiz;
  * @author Christian
  */
 public class Ende extends javax.swing.JFrame {
-    GUI gui;
+
+    Quiz quiz_;
+
     /**
      * Creates new form Ende
+     *
      * @param gui
      * @param anzahl
      * @param time
      */
-    public Ende(GUI gui, int anzahl , int[] time) {
-        this.gui= gui;
-        
-        
-        String S = "Ihr habt euch : "+anzahl+" Punkte erspielt!";
-        
-        String timeStringMin = "Ihr habt : " +time[0]+ " : " +time[1]+ " Minuten gebraucht";
-        String timeStringSek = "Ihr habt : " +time[0]+ " : " +time[1]+ " Sekunden gebraucht";
-        
+    public Ende(Quiz quiz, int anzahl, int[] time) {
+        this.quiz_ = quiz;
+
+        String S = "Ihr habt euch : " + anzahl + " Punkte erspielt!";
+
+        String timeStringMin = "Ihr habt : " + time[0] + " : " + time[1] + " Minuten gebraucht";
+        String timeStringSek = "Ihr habt : " + time[0] + " : " + time[1] + " Sekunden gebraucht";
+
         initComponents();
         jLabel2.setText(S);
-        
-        if(time[0] != 0){
-        jLabel3.setText(timeStringMin);    
-        }else{
-        jLabel3.setText(timeStringSek);
+
+        if (time[0] != 0) {
+            jLabel3.setText(timeStringMin);
+        } else {
+            jLabel3.setText(timeStringSek);
         }
         setVisible(true);
-        
-        gui.stopMusic();
+
+        quiz.stopMusic();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,25 +121,18 @@ public class Ende extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       if(evt.getSource() == jButton1){
-           
-           gui.newGame();
-           this.dispose(); 
-            
-       }
+        if (evt.getSource() == jButton1) {
+            quiz_.newGame();
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(evt.getSource() == jButton2) {
-            this.dispose();
-            gui.dispose();
+        if (evt.getSource() == jButton2) {
             System.exit(0);
-            
         }
-        
     }//GEN-LAST:event_jButton2ActionPerformed
 
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

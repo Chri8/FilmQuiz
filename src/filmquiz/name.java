@@ -10,12 +10,17 @@ package filmquiz;
  * @author Christian
  */
 public class name extends javax.swing.JFrame {
-    GUI gui;
+
+    Quiz quiz_;
+    GUI gui_;
+    String name_;
+
     /**
      * Creates new form name
      */
-    public name(GUI gui) {
-        this.gui = gui;
+    public name(Quiz quiz, GUI gui) {
+        this.quiz_ = quiz;
+        this.gui_ = gui;
         initComponents();
         setVisible(true);
     }
@@ -76,14 +81,16 @@ public class name extends javax.swing.JFrame {
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
         if (evt.getSource() == OK) {
             this.dispose();
-            gui.name=jTextField1.getText();
-            gui.newGame();
-            
-            
+            name_ =jTextField1.getText();
+            quiz_.name = name_;
+            quiz_.newGame();
         }
     }//GEN-LAST:event_OKActionPerformed
+    
+    public String getName(){
+        return name_;
+    }
 
-   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton OK;
     private javax.swing.JLabel jLabel1;

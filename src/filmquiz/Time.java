@@ -10,15 +10,16 @@ package filmquiz;
  * @author Christian
  */
 public class Time extends javax.swing.JFrame {
-    
-    GUI gui;
+
+    Quiz quiz_;
+
     /**
      * Creates new form Time
+     *
      * @param gui
      */
-    public Time(GUI gui) {
-        this.gui = gui;
-        
+    public Time(Quiz quiz) {
+        this.quiz_ = quiz;
         initComponents();
     }
 
@@ -88,18 +89,16 @@ public class Time extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       if (evt.getSource() == jButton1) {
-           gui.finish();
-           setVisible(false);
-
+        if (evt.getSource() == jButton1) {
+            quiz_.finish();
+            setVisible(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        gui.finish();
+        quiz_.finish();
     }//GEN-LAST:event_formWindowClosing
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
