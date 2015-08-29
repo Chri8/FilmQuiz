@@ -14,17 +14,17 @@ import org.json.simple.JSONObject;
  */
 public class Einstellungen extends javax.swing.JFrame {
 
-    GUI gui_;
+   
     Quiz quiz_;
     JSONArray newArray;
     JSONObject saveJSONObject = new JSONObject();
-    JSONArray settingsArray = quiz_.loadJson("Settings.json");
-    JSONObject jSONObject = (JSONObject) settingsArray.get(0);
+    JSONArray settingsArray;
+    JSONObject jSONObject;
     /**
      * Creates new form Einstellungen
      */
-    public Einstellungen(GUI gui, Quiz quiz) {
-        this.gui_ = gui;
+    public Einstellungen(Quiz quiz) {
+       
         this.quiz_ = quiz;
         initComponents();
     }
@@ -78,49 +78,47 @@ public class Einstellungen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(122, 122, 122)
-                                .addComponent(jLabel2))
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(timer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(timer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(fragen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 156, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fragen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(94, 94, 94))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel2)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(fragen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(timer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap())
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -131,10 +129,11 @@ public class Einstellungen extends javax.swing.JFrame {
         if(evt.getSource() == jButton1){
             setTimer();
             setFragen();
-            saveSettings(Integer.parseInt(fragen.getText()),Integer.parseInt(timer.getText()));
+            saveSettings(fragen.getText(),timer.getText());
             
-            gui_.setLabel();
+            quiz_.setLabels();
             this.dispose();
+            
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -157,39 +156,39 @@ public class Einstellungen extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void runAtfirstStart() {
+        settingsArray = quiz_.loadJson("Settings.json");
+        jSONObject = (JSONObject) settingsArray.get(0);
         
         if(jSONObject != null) {
             
-            Integer timer = (Integer) jSONObject.get("Timer");
-            Integer anzahl = (Integer) jSONObject.get("Fragen");
+            String timer = (String) jSONObject.get("Timer");
+            String anzahl = (String) jSONObject.get("Fragen");
             
-            gui_.setTimer(timer);
-            gui_.setFragen(anzahl);
             
+            quiz_.setTimer(Integer.parseInt(timer));
+            quiz_.setFragen(Integer.parseInt(anzahl));
         } else {
-            
-            gui_.setTimer(30);
-            gui_.setFragen(10);
-            
+            quiz_.setTimer(30);
+            quiz_.setFragen(10);
         }
-        
-        
     }
 
-    private void saveSettings(Integer fragen, Integer timer) {
+    private void saveSettings(String fragen, String timer) {
         saveJSONObject.put("Fragen", fragen);
         saveJSONObject.put("Timer", timer);
+        newArray = getSettings();
+        newArray.clear();
         newArray.add(saveJSONObject);
         quiz_.saveJSON("Settings.json", newArray);
     }
-    
-    
-    
+    public JSONArray getSettings() {
+        return quiz_.loadJson("Settings.json");
+    }
     private void setTimer(){
-        gui_.setTimer(Integer.parseInt(timer.getText()));
+        quiz_.setTimer(Integer.parseInt(timer.getText()));
     }
     private void setFragen(){
-        gui_.setFragen(Integer.parseInt(fragen.getText()));
+        quiz_.setFragen(Integer.parseInt(fragen.getText()));
     }
   
     

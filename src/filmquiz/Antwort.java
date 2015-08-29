@@ -10,22 +10,25 @@ package filmquiz;
  * @author Christian
  */
 public class Antwort extends javax.swing.JFrame {
-    GUI gui;
+
+    Quiz quiz_;
+
     /**
      * Creates new form Antwort
+     *
      * @param gui
      * @param richtig
      * @param Richtige
      */
-    public Antwort(GUI gui, Boolean richtig, String Richtige) {
-        this.gui = gui;
+    public Antwort(Quiz quiz, Boolean richtig, String Richtige) {
+        this.quiz_ = quiz;
         initComponents();
-        
+
         if (richtig) {
             jLabel1.setText("Korrekt");
             jLabel2.setVisible(false);
             jLabel3.setVisible(false);
-        }else{
+        } else {
             jLabel1.setText("Falsch");
             jLabel2.setText("Die Richtige Lösung ist :");
             jLabel3.setText(Richtige);
@@ -108,15 +111,15 @@ public class Antwort extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        gui.finish();
+        quiz_.finish();
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void handler(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_handler
-      gui.finish();
+        quiz_.finish();
     }//GEN-LAST:event_handler
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
