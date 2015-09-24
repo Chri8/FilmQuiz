@@ -16,12 +16,12 @@ public class Einstellungen extends javax.swing.JFrame {
 
    
     Quiz quiz_;
-    JSONArray newArray;
-    JSONObject saveJSONObject = new JSONObject();
     JSONArray settingsArray;
     JSONObject jSONObject;
     /**
-     * Creates new form Einstellungen
+     * Creates new form Einstellungen.
+     * Benötigt eine Instance von Quiz
+     * @param quiz
      */
     public Einstellungen(Quiz quiz) {
        
@@ -62,16 +62,20 @@ public class Einstellungen extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Fragen:");
 
-        fragen.setText("Fragen");
+        fragen.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fragen.setText("10");
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel2.setText("Einstellungen");
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Timer:");
 
-        timer.setText("Timer");
+        timer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        timer.setText("30");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,27 +83,24 @@ public class Einstellungen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(timer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fragen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(94, 94, 94))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addContainerGap())))
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jLabel2)
-                .addGap(0, 0, 0))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(fragen))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(timer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +130,7 @@ public class Einstellungen extends javax.swing.JFrame {
         if(evt.getSource() == jButton1){
             setTimer();
             setFragen();
-            saveSettings(fragen.getText(),timer.getText());
+            quiz_.saveSettings(fragen.getText(),timer.getText());
             
             quiz_.setLabels();
             this.dispose();
@@ -155,17 +156,17 @@ public class Einstellungen extends javax.swing.JFrame {
     private javax.swing.JTextField timer;
     // End of variables declaration//GEN-END:variables
 
-    public void runAtfirstStart() {
-        settingsArray = quiz_.loadJson("Settings.json");
+    public void runAtStart() {
+        settingsArray = quiz_.getSettings();
         jSONObject = (JSONObject) settingsArray.get(0);
         
         if(jSONObject != null) {
             
-            String timer = (String) jSONObject.get("Timer");
+            String time = (String) jSONObject.get("Timer");
             String anzahl = (String) jSONObject.get("Fragen");
             
             
-            quiz_.setTimer(Integer.parseInt(timer));
+            quiz_.setTimer(Integer.parseInt(time));
             quiz_.setFragen(Integer.parseInt(anzahl));
         } else {
             quiz_.setTimer(30);
@@ -173,23 +174,15 @@ public class Einstellungen extends javax.swing.JFrame {
         }
     }
 
-    private void saveSettings(String fragen, String timer) {
-        saveJSONObject.put("Fragen", fragen);
-        saveJSONObject.put("Timer", timer);
-        newArray = getSettings();
-        newArray.clear();
-        newArray.add(saveJSONObject);
-        quiz_.saveJSON("Settings.json", newArray);
-    }
-    public JSONArray getSettings() {
-        return quiz_.loadJson("Settings.json");
-    }
+    
+    
     private void setTimer(){
         quiz_.setTimer(Integer.parseInt(timer.getText()));
     }
     private void setFragen(){
         quiz_.setFragen(Integer.parseInt(fragen.getText()));
     }
+    
   
     
 }

@@ -5,16 +5,23 @@
  */
 package filmquiz;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
-import org.json.simple.parser.*;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -24,87 +31,60 @@ public class Quiz {
 
     private JSONParser jsonParser;
     private JSONArray jsonArray;
-    private JSONArray newArray;
-    private JSONObject saveJSONObject = new JSONObject();
+    private JSONArray newArray = new JSONArray();
+
+    private final JSONObject saveJSONObject = new JSONObject();
+
+    private static File configRoot_;
+    public static File songRoot_;
+
+    private static final String FRAGEN = "Fragen.json";
+    private static final String HIGHSCORE = "Bestenliste.json";
+    private static final String SETTINGS = "Settings.json";
+
     GUI gui_;
+    Ende endeFrame;
+    Time timeFrame;
+    name nameFrame;
     Countdown c = new Countdown();
     AudioPlayer newPlayer = null;
+
     int score_ = 0;
     int MAX_QUESTION = 10;
     int TIMER = 30;
     int max_Question = MAX_QUESTION;
+
     public String frage;
     public String antwort;
     public String mp3Pfad;
     public HashSet<Integer> ausgewaehlte = new HashSet<>();
     public long past;
     public int[] arrayTime;
-    Ende endeFrame;
-    Time timeFrame;
-    name nameFrame;
+
+    private boolean isWindows_;
+    private boolean isWin2000orXpOS_;
+    private boolean isMacOSX_;
+    private String javaVersion_;
 
     Antwort antwortFrame;
 
     public String name = "SchunterKino MovieQuiz";
 
-    //JSONArray jsonArray;
     public Quiz(GUI gui) {
         this.gui_ = gui;
-
-        jsonArray = loadJson("fragen.json");
+        initializeJava();
+        initializeOS();
     }
 
     public Quiz() {
-        jsonArray = loadJson("fragen.json");
-    }
-
-    public JSONArray loadJson(String Datei) {
-        try {
-            FileReader reader = new FileReader(Datei);
-
-            jsonParser = new JSONParser();
-            jsonArray = (JSONArray) jsonParser.parse(reader);
-
-            return jsonArray;
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void saveJSON(String File, JSONArray saveArray) {
-        try {
-            FileWriter writer = new FileWriter(File);
-            writer.write(saveArray.toJSONString());
-            writer.flush();
-            writer.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void saveRanked(String Name, int score, int[] time) {
-        saveJSONObject.put("Name", Name);
-        saveJSONObject.put("Punkte", score);
-        saveJSONObject.put("Zeit", time[0] + ":" + time[1]);
-
-        newArray = getBestenliste();
-        newArray.add(getLast() + 1, saveJSONObject);
-        saveJSON("Bestenliste.json", newArray);
-    }
-
-    public JSONArray getBestenliste() {
-        return loadJson("Bestenliste.json");
-    }
-
-    public int getLast() {
-        int last = getBestenliste().lastIndexOf(this);
-        return last;
+        initializeJava();
+        initializeOS();
     }
 
     public void newGame() {
         score_ = 0;
-        max_Question = MAX_QUESTION;
+        jsonArray.clear();
+        jsonArray = loadJSON(FRAGEN);
         past = new GregorianCalendar().getTimeInMillis();
 
         ausgewaehlte.clear();
@@ -157,11 +137,83 @@ public class Quiz {
         }
     }
 
-    public void isPlaying() {
-        if (newPlayer != null && !newPlayer.getIsPlaying()) {
-            gui_.playbtn1.setEnabled(true);
-            gui_.stopbtn.setEnabled(false);
+    public void finish() {
+        c.reset();
+        setLabels();
+        if (max_Question == 0) {
+
+            playMusic("Explosion.wav");
+            arrayTime = neededTime(past, new GregorianCalendar().getTimeInMillis());
+
+            saveRanked(name, score_ / 2, arrayTime);
+            endeFrame = new Ende(this, score_ / 2, arrayTime);
+        } else {
+            change();
         }
+    }
+
+    private Path getPath() {
+        Path pfad = Paths.get(System.getProperty("user.home")).resolve("FilmQuizConf");
+
+        return pfad;
+    }
+
+    public void start(){
+        if(!checkDirs())
+        {
+            newGame();
+        }else{
+            String s = "Dies ist der erste Start des Filmquiz. Bitte den Ordner Songs und die Fragendatei im Ordner ";
+            String s2 = getPath().resolve("FilmQuizConf").toString() + " befüllen";
+            gui_.showMe.add(s);
+            gui_.showMe.add(s2);
+            gui_.showMe.setVisible(true);
+        }
+        
+    }
+
+
+    private boolean checkDirs(){
+        if(new File(getPath().resolve("FilmQuiz").toString()).exists()) {
+            return false;
+        } else {
+            setupConfigs();
+            return true;
+        }
+    }
+    
+    private void setupConfigs() {
+
+        configRoot_ = new File(getPath().toString());
+        songRoot_ = new File(getPath().resolve("Sounds").toString());
+
+        if (configRoot_.exists() && (configRoot_.listFiles() == null)) {
+            jsonArray = loadJSON(FRAGEN);
+
+        } else {
+            configRoot_.mkdirs(); 
+            songRoot_.mkdirs();
+
+            createFiles();
+        }
+    }
+    
+    private void createFiles() {
+
+        List<String> list = new LinkedList<String>();
+        list.add(SETTINGS);
+        list.add(HIGHSCORE);
+        list.add(FRAGEN);
+        for (int i = 0; i < 3; i++) {
+            String pathString = getPath().resolve(list.get(i)).toString();
+            try {
+                new File(pathString).createNewFile();
+            } catch (IOException ex) {
+                System.err.println("Datei konnten nicht erstellt werden.");
+                ex.printStackTrace();
+            }
+        }
+        saveSettings(Integer.toString(MAX_QUESTION), Integer.toString(TIMER));
     }
 
     public void check(String name) {
@@ -180,18 +232,75 @@ public class Quiz {
         }
     }
 
-    public void finish() {
-        c.reset();
-        setLabels();
-        if (max_Question == 0) {
+    public JSONArray loadJSON(String file) {
+        
+        String pfad = getPath().resolve(file).toString();
+        
+        try {
 
-            playMusic("boom.wav");
-            arrayTime = neededTime(past, new GregorianCalendar().getTimeInMillis());
+            FileReader reader = new FileReader(pfad);
 
-            saveRanked(name, score_ / 2, arrayTime);
-            endeFrame = new Ende(this, score_ / 2, arrayTime);
-        } else {
-            change();
+
+            
+            jsonParser = new JSONParser();
+            jsonParser.reset();
+            jsonArray = (JSONArray) jsonParser.parse(reader);
+
+            return jsonArray;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        System.err.print("File nicht geladen");
+        return null;
+    }
+
+    public void saveJSON(String file, JSONArray saveArray) {
+        try {
+            FileWriter writer = new FileWriter(getPath().resolve(file).toString());
+            writer.write(saveArray.toJSONString());
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void saveRanked(String Name, int score, int[] time) {
+        saveJSONObject.put("Name", Name);
+        saveJSONObject.put("Punkte", score);
+        saveJSONObject.put("Zeit", time[0] + ":" + time[1]);
+
+        newArray = getBestenliste();
+        newArray.add(getLast() + 1, saveJSONObject);
+        saveJSON(HIGHSCORE, newArray);
+    }
+
+    public void saveSettings(String fragen, String time) {
+        saveJSONObject.put("Fragen", fragen);
+        saveJSONObject.put("Timer", time);
+        //newArray = getSettings();
+        newArray.add(saveJSONObject);
+
+        saveJSON(SETTINGS, newArray);
+    }
+
+    public JSONArray getBestenliste() {
+        return loadJSON(HIGHSCORE);
+    }
+
+    public JSONArray getSettings() {
+        return loadJSON(SETTINGS);
+    }
+
+    public int getLast() {
+        int last = getBestenliste().lastIndexOf(this);
+        return last;
+    }
+
+    public void isPlaying() {
+        if (newPlayer != null && !newPlayer.getIsPlaying()) {
+            gui_.playbtn1.setEnabled(true);
+            gui_.stopbtn.setEnabled(false);
         }
     }
 
@@ -263,12 +372,12 @@ public class Quiz {
         if (newPlayer != null) {
             newPlayer.stop();
         }
-
     }
 
     public void playMusic(String Pfad) {
         closePlayer();
-        newPlayer = new AudioPlayer("Sounds/" + Pfad);
+        String reste = getPath().resolve("Sounds").resolve(Pfad).toString();
+        newPlayer = new AudioPlayer(reste);
         newPlayer.play();
     }
 
@@ -294,4 +403,23 @@ public class Quiz {
         MAX_QUESTION = anzahl;
         max_Question = anzahl;
     }
+
+    private void initializeOS() {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if (os.startsWith("mac os")) {
+            isMacOSX_ = os.endsWith("x");
+        } else if (os.contains("windows")) {
+            isWindows_ = true;
+            if (os.contains("windows 2000")
+                    || os.contains("windows xp")) {
+                isWin2000orXpOS_ = true;
+            }
+        }
+    }
+
+    private void initializeJava() {
+        javaVersion_ = System.getProperty("java.version");
+    }
+
 }
