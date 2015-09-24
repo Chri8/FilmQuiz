@@ -5,6 +5,8 @@
  */
 package filmquiz;
 
+import org.json.simple.JSONArray;
+
 /**
  *
  * @author Christian
@@ -16,13 +18,18 @@ public class GUI extends javax.swing.JFrame {
     name nameFrame;
     Bestenliste rankedFrame;
     Einstellungen einstellungsFrame = new Einstellungen(quiz_);
+    
+    JSONArray array2 = new JSONArray();
 
     /**
      * Creates new form GUI
      */
     public GUI() {
-        einstellungsFrame.runAtfirstStart();
-        quiz_.loadJson("fragen.json");
+        
+        
+        quiz_.start();
+        einstellungsFrame.runAtStart();
+
         timeFrame = new Time(quiz_);
 
         quiz_.timer();
@@ -40,6 +47,7 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        showMe = new javax.swing.JPopupMenu();
         newGame = new javax.swing.JButton();
         A = new javax.swing.JButton();
         B = new javax.swing.JButton();
@@ -85,7 +93,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Noch : 30 Sek");
+        jLabel1.setText("Noch : " + quiz_.TIMER + " Sek.");
 
         stopbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filmquiz/player_stop.png"))); // NOI18N
         stopbtn.setEnabled(false);
@@ -146,7 +154,7 @@ public class GUI extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(16, 16, 16)
                                 .addComponent(stopbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 6, Short.MAX_VALUE))))
+                        .addGap(0, 9, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,6 +256,7 @@ public class GUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new GUI().setVisible(true);
             }
         });
@@ -264,6 +273,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton newGame;
     public javax.swing.JToggleButton playbtn1;
     private javax.swing.JToggleButton settings;
+    public javax.swing.JPopupMenu showMe;
     public javax.swing.JToggleButton stopbtn;
     // End of variables declaration//GEN-END:variables
 

@@ -16,7 +16,11 @@ public class name extends javax.swing.JFrame {
     String name_;
 
     /**
-     * Creates new form name
+     * Creates new form name.
+     * 
+     * Benötigt eine instance von quiz und GUI
+     * @param quiz
+     * @param gui
      */
     public name(Quiz quiz, GUI gui) {
         this.quiz_ = quiz;
@@ -87,6 +91,7 @@ public class name extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_OKActionPerformed
     
+    @Override
     public String getName(){
         return name_;
     }
